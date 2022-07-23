@@ -49,16 +49,5 @@ Triggers are also utilized with the data points.
 The user event of "mouse over" a data point changes the current state of the chart by applying an opacity of 0.01 to all data not part of the vehicle type that is currently moused over. The user event of "mouse off" changes the current state of the chart by returning the opacity of all data points back to 1. This capability for the user event associated with data mouse over is communicated with an annotation.
 
 
-### References
-
-Example of Interative Slideshow from NY Times used as reference:
-https://archive.nytimes.com/www.nytimes.com/interactive/2010/02/02/us/politics/20100201-budget-porcupine-graphic.html
-
-Tutorial for building a stepper page used as reference:
-http://vallandingham.me/stepper_steps.html
-
-D3 Scatter plot example used as reference:
-http://bl.ocks.org/weiglemc/6185069
-
 
 
