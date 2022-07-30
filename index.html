@@ -139,11 +139,11 @@
 	      .attr("r", 3.5)
 	      .attr("cx", function(d) { return x(d.Income); })
 	      .attr("cy", function(d) { return y(d.Population); })
-	      .style("fill", function(d) { return color(d.Country); })
+	      .style("fill", function(d) { return color(d.Name); })
 	      .on("mouseover", function(d){
         	  d3.selectAll('.dot')
             	   .filter(function(dot){ 
-                    return (dot.type != d.Country) 
+                    return (dot.type != d.Name) 
                    })
                    .transition()
                    .style("opacity", 0.01)
@@ -151,7 +151,7 @@
               .on("mouseout", function(d){
                d3.selectAll('.dot')
                 .filter(function(dot){ 
-                 return (dot.type != d.Country) 
+                 return (dot.type != d.Name) 
                 })
                 .transition()
                 .style("opacity", 1)

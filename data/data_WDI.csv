@@ -1,4 +1,4 @@
-Country Name,Population,Income
+Name,Population,Income
 Albania,2880703,11
 Armenia,2925559,9
 Austria,8642699,11
@@ -8,63 +8,3 @@ Benin,10575962,20
 Bolivia,10869732,21
 Botswana,2120716,20
 Brazil,204471759,23
-Bulgaria,7177991,16
-Cabo Verde,524740,16
-Canada,35702908,14
-Chile,17969356,14
-Colombia,47520667,21
-Costa Rica,4847805,19
-Cote d'Ivoire,23226148,15
-Croatia,4203604,14
-Cyprus,1160987,10
-Czech Republic,10546059,7
-Denmark,5683483,6
-Dominican Republic,10281675,18
-Ecuador,16212022,19
-"Egypt, Arab Rep.",92442549,5
-El Salvador,6325121,14
-Estonia,1315407,11
-Ethiopia,100835453,12
-"Gambia, The",2085860,10
-Georgia,3725276,13
-Greece,10820883,18
-Honduras,9112904,24
-Hungary,9843028,13
-Iceland,330815,6
-"Iran, Islamic Rep.",78492208,14
-Ireland,4701957,10
-Israel,8380100,21
-Italy,60730582,16
-Kazakhstan,17542806,4
-Kyrgyz Republic,5956900,5
-Latvia,1977527,12
-Lithuania,2904910,15
-Luxembourg,569604,12
-Malaysia,30270965,16
-Malta,445053,9
-Moldova,2834530,5
-Myanmar,52680724,9
-Namibia,2314901,24
-Netherlands,16939923,8
-Nigeria,181137454,13
-North Macedonia,2070226,17
-Norway,5188607,8
-Panama,3968490,23
-Paraguay,6688746,20
-Peru,30470739,20
-Poland,37986412,13
-Portugal,10358076,13
-Russian Federation,144096870,12
-Serbia,7095383,20
-Slovenia,2063531,8
-Spain,46444832,17
-Sweden,9799186,10
-Switzerland,8282396,11
-Thailand,68714519,10
-Togo,7323162,18
-Tonga,100780,13
-Turkiye,78529413,16
-Ukraine,45154036,5
-United States,320738994,17
-Uruguay,3412013,18
-Zambia,15879370,25
