@@ -3,72 +3,49 @@
   <meta charset="utf-8">
   <title>Data Visualization</title>
   <meta name="author" content="Noor Alam">
-  <meta name="description" content="">
+  <meta name="description" content="Data Visualization Project">
 
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/stepper.css">
+  <link rel="stylesheet" href="css/main.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
-  <script src="js/stepper.js"></script>
   <script src="//d3js.org/d3.v3.min.js"></script>
 </head>
 <body>
   <div id="container">
-    <h1>Annual GDP Growth vs Income Median Below 50 </h1>
-    <h2 class="subtitle">Visualization is based on data from the WDI on Annual GDP Growth and median income</h2>
+    <h1>Annual GDP Growth vs Secondary Education, Poverty Ratio and Income Median below 50% </h1>
+    <h3 class="subtitle">Visualization is based on data from the WDI of 20 Countries grouped by income groups for 2015, you can hover over the data to filter based on income groups</h3>
     <div id="vis-nav">
-      <a href="#" id="step1" class="step-link active">Scene 1</a>
-      <a href="#" id="step2" class="step-link">Scene 2</a>
-      <a href="#" id="step3" class="step-link">Scene 3</a>
+      <a href="#" id="step1" class="step-link active">Education</a>
+      <a href="#" id="step2" class="step-link">Poverty</a>
+      <a href="#" id="step3" class="step-link">Income</a>
 
     </div>
     <div id="vis-container">
       <div id="annotation-steps">
         <div class="annotation-step" id="step1-annotation" style="display:block;">
           <div class="annotation" id="step1-high-annotation" >
-            <h4>As Income Median Below 50 increases with Annual GDP Growth.</h4>
-                		  
+            <h3>Does the educated Population correlate with Annual GDP Growth, for different Income levels?</h3>     		  
           </div>
          </div>
         <div class="annotation-step" id="step2-annotation">
           <div class="annotation" id="step2-high-annotation" >
-	    <h4>Mouseover the data to see the individual trends for different income levels</h4>
-				
+	    <h3>Or the Poverty Ratio correlate with Annual GDP Growth, for different Income levels ?</h3>
           </div>
         </div>
 		<div class="annotation-step" id="step3-annotation">
 			<div class="annotation" id="step3-high-annotation" >
-			<h4>Countries with </h4>
+			<h3>OR Income median below 50% population correlate with Annual GDP Growth, for different Income levels?</h3>
           </div>
         </div>
       </div>
      <div id="vis-canvas"> 
 		<div class="canvas-step" id="step1-canvas" style="display:block;">
-			
 		   </div>
 		  <div class="canvas-step" id="step2-canvas">
-			
 		  </div>
 		  <div class="canvas-step" id="step3-canvas">
-			
 		  </div>
-	     
-      <style>
-
-	.axis path,
-	.axis line {
-	  fill: none;
-	  stroke: #000;
-	  shape-rendering: crispEdges;
-	}
-
-	.dot {
-	  stroke: #000;
-	}
-
-	</style>
-
 	<script>
 	
 	// Set the dimensions of the canvas / graph
@@ -81,7 +58,6 @@
 	    .range([0, width]);
 	var y = d3.scale.linear()
 	    .range([height, 0]);
-
 	var color = d3.scale.category10();
 
 	// Define the axes
@@ -93,7 +69,6 @@
 	    .scale(y)
 	    .orient("left");
 
-		
 
 	// Add the first svg canvas
 	var svg = d3.select("#vis-canvas").select("#step1-canvas").append("svg")
@@ -112,8 +87,8 @@
 	  });
 
 	// Scale the range of the data
-	  x.domain(d3.extent(data, function(d) { return d.completed_upper_secondary_25; })).nice();
-	  y.domain(d3.extent(data, function(d) { return d.GDP_growth_annual; })).nice();
+	  x.domain(d3.extent(data, function(d) { return d.GDP_growth_annual; })).nice();
+	  y.domain(d3.extent(data, function(d) { return d.completed_upper_secondary_25; })).nice();
 
 	// Add the X Axis
 	  svg.append("g")
@@ -125,7 +100,7 @@
 	      .attr("x", width)
 	      .attr("y", -6)
 	      .style("text-anchor", "end")
-	      .text("Completed upper secondary at age 25+ ");
+	      .text("Annual GDP Growth");
 
 	// Add the Y Axis
 	  svg.append("g")
@@ -137,21 +112,23 @@
 	      .attr("y", 6)
 	      .attr("dy", ".71em")
 	      .style("text-anchor", "end")
-	      .text("Annual GDP Growth")
+	      .text("Completed upper secondary at age 25+ ")
 
 	// Add the Scatterplot
+	
 	  svg.selectAll(".dot")
 	      .data(data)
 	    .enter().append("circle")
-	      .attr("class", "dot")
-	      .attr("r", 3.5)
-	      .attr("cx", function(d) { return x(d.completed_upper_secondary_25); })
-	      .attr("cy", function(d) { return y(d.GDP_growth_annual); })
-	      .style("fill", function(d) { return color(d.Name); })
-	      .on("mouseover", function(d){
+	    .attr("class", "dot")
+	    .attr("r", 6)
+		.text(function(d){ return d.Name;})
+		.attr("cx", function(d) { return x(d.GDP_growth_annual); })
+	    .attr("cy", function(d) { return y(d.completed_upper_secondary_25); })
+		.style("fill", function(d) { return color(d.Level); })
+		.on("mouseover", function(d){
         	  d3.selectAll('.dot')
             	   .filter(function(dot){ 
-                    return (dot.type != d.Name) 
+                    return (dot.Level != d.Level) 
                    })
                    .transition()
                    .style("opacity", 0.01)
@@ -159,14 +136,13 @@
               .on("mouseout", function(d){
                d3.selectAll('.dot')
                 .filter(function(dot){ 
-                 return (dot.type != d.Name) 
+                 return (dot.Level != d.Level) 
                 })
                 .transition()
                 .style("opacity", 1)
           });
-
-	// Add the Legend
-	  var legend = svg.selectAll(".legend")
+		
+	   var legend = svg.selectAll(".legend")
 	      .data(color.domain())
 	    .enter().append("g")
 	      .attr("class", "legend")
@@ -183,7 +159,7 @@
 	      .attr("y", 9)
 	      .attr("dy", ".35em")
 	      .style("text-anchor", "end")
-	      .text(function(d) { return d; });
+	      .text(function(d) { return d  + " Income"; });
 
 	});
 
@@ -207,11 +183,11 @@ var svg2 = d3.select("#vis-canvas").select("#step2-canvas").append("svg")
 	  });
 
 	// Scale the range of the data
-	  x.domain(d3.extent(data, function(d) { return d.poverty_headcount_ratio; })).nice();
-	  y.domain(d3.extent(data, function(d) { return d.GDP_growth_annual; })).nice();
+	  x.domain(d3.extent(data, function(d) { return d.GDP_growth_annual; })).nice();
+	  y.domain(d3.extent(data, function(d) { return d.poverty_headcount_ratio; })).nice();
 
 	// Add the X Axis
-	  svg2.append("g")
+	svg2.append("g")
 	      .attr("class", "x axis")
 	      .attr("transform", "translate(0," + height + ")")
 	      .call(xAxis)
@@ -220,10 +196,10 @@ var svg2 = d3.select("#vis-canvas").select("#step2-canvas").append("svg")
 	      .attr("x", width)
 	      .attr("y", -6)
 	      .style("text-anchor", "end")
-	      .text("Poverty Head Count Ratio ");
+	      .text("Annual GDP Growth ");
 
 	// Add the Y Axis
-	  svg2.append("g")
+	svg2.append("g")
 	      .attr("class", "y axis")
 	      .call(yAxis)
 	    .append("text")
@@ -232,21 +208,22 @@ var svg2 = d3.select("#vis-canvas").select("#step2-canvas").append("svg")
 	      .attr("y", 6)
 	      .attr("dy", ".71em")
 	      .style("text-anchor", "end")
-	      .text("Annual GDP Growth")
+	      .text("Poverty Head Count Ratio")
 
 	// Add the Scatterplot
-	  svg2.selectAll(".dot")
+	svg2.selectAll(".dot")
 	      .data(data)
-	    .enter().append("circle")
-	      .attr("class", "dot")
-	      .attr("r", 3.5)
-	      .attr("cx", function(d) { return x(d.poverty_headcount_ratio); })
-	      .attr("cy", function(d) { return y(d.GDP_growth_annual); })
-	      .style("fill", function(d) { return color(d.Name); })
-	      .on("mouseover", function(d){
+	    .enter()
+		.append("circle")
+	    .attr("class", "dot")
+	    .attr("r", 6)
+		.attr("cx", function(d) { return x(d.GDP_growth_annual); })
+	    .attr("cy", function(d) { return y(d.poverty_headcount_ratio); })
+		.style("fill", function(d) { return color(d.Level); })
+		.on("mouseover", function(d){
         	  d3.selectAll('.dot')
             	   .filter(function(dot){ 
-                    return (dot.type != d.Name) 
+                    return (dot.Level != d.Level) 
                    })
                    .transition()
                    .style("opacity", 0.01)
@@ -254,14 +231,12 @@ var svg2 = d3.select("#vis-canvas").select("#step2-canvas").append("svg")
               .on("mouseout", function(d){
                d3.selectAll('.dot')
                 .filter(function(dot){ 
-                 return (dot.type != d.Name) 
+                 return (dot.Level != d.Level) 
                 })
                 .transition()
-                .style("opacity", 1)
-          });
+                .style("opacity", 1);});
 
-	// Add the Legend
-	  var legend = svg2.selectAll(".legend")
+	   var legend = svg2.selectAll(".legend")
 	      .data(color.domain())
 	    .enter().append("g")
 	      .attr("class", "legend")
@@ -278,7 +253,8 @@ var svg2 = d3.select("#vis-canvas").select("#step2-canvas").append("svg")
 	      .attr("y", 9)
 	      .attr("dy", ".35em")
 	      .style("text-anchor", "end")
-	      .text(function(d) { return d; });
+	      .text(function(d) { return d + " Income"; });
+
 
 	});
 
@@ -300,8 +276,8 @@ var svg3 = d3.select("#vis-canvas").select("#step3-canvas").append("svg")
 	  });
 
 	// Scale the range of the data
-	  x.domain(d3.extent(data, function(d) { return d.below_50_percent_of_median_income; })).nice();
-	  y.domain(d3.extent(data, function(d) { return d.GDP_growth_annual; })).nice();
+	  x.domain(d3.extent(data, function(d) { return d.GDP_growth_annual; })).nice();
+	  y.domain(d3.extent(data, function(d) { return d.below_50_percent_of_median_income; })).nice();
 
 	// Add the X Axis
 	svg3.append("g")
@@ -313,7 +289,7 @@ var svg3 = d3.select("#vis-canvas").select("#step3-canvas").append("svg")
 	      .attr("x", width)
 	      .attr("y", -6)
 	      .style("text-anchor", "end")
-	      .text("Population with Income Median Below 50 ");
+	      .text("Annual GDP Growth");
 
 	// Add the Y Axis
 	  svg3.append("g")
@@ -325,21 +301,22 @@ var svg3 = d3.select("#vis-canvas").select("#step3-canvas").append("svg")
 	      .attr("y", 6)
 	      .attr("dy", ".71em")
 	      .style("text-anchor", "end")
-	      .text("Annual GDP Growth")
+	      .text("Population with Income Median Below 50 ")
 
 	// Add the Scatterplot
-	  svg3.selectAll(".dot")
+	svg3.selectAll(".dot")
 	      .data(data)
-	    .enter().append("circle")
-	      .attr("class", "dot")
-	      .attr("r", 3.5)
-	      .attr("cx", function(d) { return x(d.below_50_percent_of_median_income); })
-	      .attr("cy", function(d) { return y(d.GDP_growth_annual); })
-	      .style("fill", function(d) { return color(d.Name); })
-	      .on("mouseover", function(d){
+	    .enter()
+		.append("circle")
+	    .attr("class", "dot")
+	    .attr("r", 6)
+		.attr("cx", function(d) { return x(d.GDP_growth_annual); })
+	    .attr("cy", function(d) { return y(d.below_50_percent_of_median_income); })
+		.style("fill", function(d) { return color(d.Level); })
+		.on("mouseover", function(d){
         	  d3.selectAll('.dot')
             	   .filter(function(dot){ 
-                    return (dot.type != d.Name) 
+                    return (dot.Level != d.Level) 
                    })
                    .transition()
                    .style("opacity", 0.01)
@@ -347,14 +324,12 @@ var svg3 = d3.select("#vis-canvas").select("#step3-canvas").append("svg")
               .on("mouseout", function(d){
                d3.selectAll('.dot')
                 .filter(function(dot){ 
-                 return (dot.type != d.Name) 
+                 return (dot.Level != d.Level) 
                 })
                 .transition()
-                .style("opacity", 1)
-          });
+                .style("opacity", 1);});
 
-	// Add the Legend
-	  var legend = svg3.selectAll(".legend")
+	var legend = svg3.selectAll(".legend")
 	      .data(color.domain())
 	    .enter().append("g")
 	      .attr("class", "legend")
@@ -371,13 +346,38 @@ var svg3 = d3.select("#vis-canvas").select("#step3-canvas").append("svg")
 	      .attr("y", 9)
 	      .attr("dy", ".35em")
 	      .style("text-anchor", "end")
-	      .text(function(d) { return d; });
+	      .text(function(d) { return d + " Income"; });	
 
 	});
 
 
+	function switchStep(newStep)
+{
+  $(".step-link").toggleClass("active", false);
+  $("#" + newStep).toggleClass("active", true);
+}
 
+function switchAnnotation(newStep)
+{
+  $(".annotation-step").hide();
+  $("#" + newStep + "-annotation").delay(300).fadeIn(500);
+}
 
+function switchCanvas(newStep)
+{
+  $(".canvas-step").hide();
+  $("#" + newStep + "-canvas").delay(1000).fadeIn(1000);
+}
+
+$(document).ready(function() {
+  $("a.step-link").click(function(e) {
+    var clickedStep = $(this).attr('id');
+    switchStep(clickedStep);
+    switchAnnotation(clickedStep);
+    switchCanvas(clickedStep)
+    return false;
+  });
+});
 	</script>
      </div>
     </div>

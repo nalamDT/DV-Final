@@ -63,7 +63,7 @@ a.desc-link:hover, a.active {
   height: 100%;
   z-index: 10;
   overflow: hidden;
-  background-color: #eee;
+  background-color: #cff10c;
 }
 
 /* By default, all annotation-steps are hidden. */
@@ -79,19 +79,30 @@ a.desc-link:hover, a.active {
  
 #step1-high-annotation {
   left: 170px;
-  top: 130px;
-  width: 140px;
+  top: 30px;
+  width: 300px;
 }
 
 #step2-high-annotation {
   left: 200px;
-  top: 60px;
-  width: 140px;
+  top: 90px;
+  width: 300px;
 }
 
 #step3-high-annotation {
-  left: 240px;
-  top: 30px;
-  width: 140px;
+  left: 340px;
+  top: 180px;
+  width: 300px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.dot {
+  stroke: #000;
 }
 
