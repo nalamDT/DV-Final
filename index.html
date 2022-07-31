@@ -15,8 +15,8 @@
 </head>
 <body>
   <div id="container">
-    <h1>Population vs Income Median Below 50 </h1>
-    <h2 class="subtitle">Visualization is based on data from the WDI on population and median income</h2>
+    <h1>Annual GDP Growth vs Income Median Below 50 </h1>
+    <h2 class="subtitle">Visualization is based on data from the WDI on Annual GDP Growth and median income</h2>
     <div id="vis-nav">
       <a href="#" id="step1" class="step-link active">Scene 1</a>
       <a href="#" id="step2" class="step-link">Scene 2</a>
@@ -27,7 +27,7 @@
       <div id="annotation-steps">
         <div class="annotation-step" id="step1-annotation" style="display:block;">
           <div class="annotation" id="step1-high-annotation" >
-            <h4>As Income Median Below 50 increases with population.</h4>
+            <h4>As Income Median Below 50 increases with Annual GDP Growth.</h4>
                 		  
           </div>
          </div>
@@ -37,14 +37,22 @@
 				
           </div>
         </div>
-	<div class="annotation-step" id="step3-annotation">
-          <div class="annotation" id="step3-high-annotation" >
-	    <h4>Countries with </h4>
-		
+		<div class="annotation-step" id="step3-annotation">
+			<div class="annotation" id="step3-high-annotation" >
+			<h4>Countries with </h4>
           </div>
         </div>
       </div>
      <div id="vis-canvas"> 
+		<div class="canvas-step" id="step1-canvas" style="display:block;">
+			
+		   </div>
+		  <div class="canvas-step" id="step2-canvas">
+			
+		  </div>
+		  <div class="canvas-step" id="step3-canvas">
+			
+		  </div>
 	     
       <style>
 
@@ -62,7 +70,7 @@
 	</style>
 
 	<script>
-
+	
 	// Set the dimensions of the canvas / graph
 	var margin = {top: 50, right: 20, bottom: 30, left: 80},
 	    width = 940 - margin.left - margin.right,
@@ -87,25 +95,25 @@
 
 		
 
-	// Add the svg canvas
-	var svg = d3.select("#vis-canvas").append("svg")
+	// Add the first svg canvas
+	var svg = d3.select("#vis-canvas").select("#step1-canvas").append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
 	  .append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 	// Get the data
-	d3.csv("https://raw.githubusercontent.com/nalamDT/DV-Final/master/data/data_WDI.csv", function(error, data) {
+	d3.csv("https://raw.githubusercontent.com/nalamDT/nalamdt.github.io/master/data/data_WDI.csv", function(error, data) {
 	  if (error) throw error;
 
 	  data.forEach(function(d) {
-	    d.Income = +d.Income;
-	    d.Population = +d.Population;
+	    d.completed_upper_secondary_25 = +d.completed_upper_secondary_25;
+	    d.GDP_growth_annual = +d.GDP_growth_annual;
 	  });
 
 	// Scale the range of the data
-	  x.domain(d3.extent(data, function(d) { return d.Income; })).nice();
-	  y.domain(d3.extent(data, function(d) { return d.Population; })).nice();
+	  x.domain(d3.extent(data, function(d) { return d.completed_upper_secondary_25; })).nice();
+	  y.domain(d3.extent(data, function(d) { return d.GDP_growth_annual; })).nice();
 
 	// Add the X Axis
 	  svg.append("g")
@@ -117,7 +125,7 @@
 	      .attr("x", width)
 	      .attr("y", -6)
 	      .style("text-anchor", "end")
-	      .text("Income Median Below 50 ");
+	      .text("Completed upper secondary at age 25+ ");
 
 	// Add the Y Axis
 	  svg.append("g")
@@ -129,7 +137,7 @@
 	      .attr("y", 6)
 	      .attr("dy", ".71em")
 	      .style("text-anchor", "end")
-	      .text("Population")
+	      .text("Annual GDP Growth")
 
 	// Add the Scatterplot
 	  svg.selectAll(".dot")
@@ -137,8 +145,8 @@
 	    .enter().append("circle")
 	      .attr("class", "dot")
 	      .attr("r", 3.5)
-	      .attr("cx", function(d) { return x(d.Income); })
-	      .attr("cy", function(d) { return y(d.Population); })
+	      .attr("cx", function(d) { return x(d.completed_upper_secondary_25); })
+	      .attr("cy", function(d) { return y(d.GDP_growth_annual); })
 	      .style("fill", function(d) { return color(d.Name); })
 	      .on("mouseover", function(d){
         	  d3.selectAll('.dot')
@@ -178,6 +186,197 @@
 	      .text(function(d) { return d; });
 
 	});
+
+
+//second svg
+
+// Add the svg canvas
+var svg2 = d3.select("#vis-canvas").select("#step2-canvas").append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	// Get the data
+	d3.csv("https://raw.githubusercontent.com/nalamDT/nalamdt.github.io/master/data/data_WDI.csv", function(error, data) {
+	  if (error) throw error;
+
+	  data.forEach(function(d) {
+	    d.poverty_headcount_ratio = +d.poverty_headcount_ratio;
+	    d.GDP_growth_annual = +d.GDP_growth_annual;
+	  });
+
+	// Scale the range of the data
+	  x.domain(d3.extent(data, function(d) { return d.poverty_headcount_ratio; })).nice();
+	  y.domain(d3.extent(data, function(d) { return d.GDP_growth_annual; })).nice();
+
+	// Add the X Axis
+	  svg2.append("g")
+	      .attr("class", "x axis")
+	      .attr("transform", "translate(0," + height + ")")
+	      .call(xAxis)
+	    .append("text")
+	      .attr("class", "label")
+	      .attr("x", width)
+	      .attr("y", -6)
+	      .style("text-anchor", "end")
+	      .text("Poverty Head Count Ratio ");
+
+	// Add the Y Axis
+	  svg2.append("g")
+	      .attr("class", "y axis")
+	      .call(yAxis)
+	    .append("text")
+	      .attr("class", "label")
+	      .attr("transform", "rotate(-90)")
+	      .attr("y", 6)
+	      .attr("dy", ".71em")
+	      .style("text-anchor", "end")
+	      .text("Annual GDP Growth")
+
+	// Add the Scatterplot
+	  svg2.selectAll(".dot")
+	      .data(data)
+	    .enter().append("circle")
+	      .attr("class", "dot")
+	      .attr("r", 3.5)
+	      .attr("cx", function(d) { return x(d.poverty_headcount_ratio); })
+	      .attr("cy", function(d) { return y(d.GDP_growth_annual); })
+	      .style("fill", function(d) { return color(d.Name); })
+	      .on("mouseover", function(d){
+        	  d3.selectAll('.dot')
+            	   .filter(function(dot){ 
+                    return (dot.type != d.Name) 
+                   })
+                   .transition()
+                   .style("opacity", 0.01)
+          })
+              .on("mouseout", function(d){
+               d3.selectAll('.dot')
+                .filter(function(dot){ 
+                 return (dot.type != d.Name) 
+                })
+                .transition()
+                .style("opacity", 1)
+          });
+
+	// Add the Legend
+	  var legend = svg2.selectAll(".legend")
+	      .data(color.domain())
+	    .enter().append("g")
+	      .attr("class", "legend")
+	      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+	  legend.append("rect")
+	      .attr("x", width - 18)
+	      .attr("width", 18)
+	      .attr("height", 18)
+	      .style("fill", color);
+
+	  legend.append("text")
+	      .attr("x", width - 24)
+	      .attr("y", 9)
+	      .attr("dy", ".35em")
+	      .style("text-anchor", "end")
+	      .text(function(d) { return d; });
+
+	});
+
+
+//add svg3
+var svg3 = d3.select("#vis-canvas").select("#step3-canvas").append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	// Get the data
+	d3.csv("https://raw.githubusercontent.com/nalamDT/nalamdt.github.io/master/data/data_WDI.csv", function(error, data) {
+	  if (error) throw error;
+
+	  data.forEach(function(d) {
+	    d.below_50_percent_of_median_income = +d.below_50_percent_of_median_income;
+	    d.GDP_growth_annual = +d.GDP_growth_annual;
+	  });
+
+	// Scale the range of the data
+	  x.domain(d3.extent(data, function(d) { return d.below_50_percent_of_median_income; })).nice();
+	  y.domain(d3.extent(data, function(d) { return d.GDP_growth_annual; })).nice();
+
+	// Add the X Axis
+	svg3.append("g")
+	      .attr("class", "x axis")
+	      .attr("transform", "translate(0," + height + ")")
+	      .call(xAxis)
+	    .append("text")
+	      .attr("class", "label")
+	      .attr("x", width)
+	      .attr("y", -6)
+	      .style("text-anchor", "end")
+	      .text("Population with Income Median Below 50 ");
+
+	// Add the Y Axis
+	  svg3.append("g")
+	      .attr("class", "y axis")
+	      .call(yAxis)
+	    .append("text")
+	      .attr("class", "label")
+	      .attr("transform", "rotate(-90)")
+	      .attr("y", 6)
+	      .attr("dy", ".71em")
+	      .style("text-anchor", "end")
+	      .text("Annual GDP Growth")
+
+	// Add the Scatterplot
+	  svg3.selectAll(".dot")
+	      .data(data)
+	    .enter().append("circle")
+	      .attr("class", "dot")
+	      .attr("r", 3.5)
+	      .attr("cx", function(d) { return x(d.below_50_percent_of_median_income); })
+	      .attr("cy", function(d) { return y(d.GDP_growth_annual); })
+	      .style("fill", function(d) { return color(d.Name); })
+	      .on("mouseover", function(d){
+        	  d3.selectAll('.dot')
+            	   .filter(function(dot){ 
+                    return (dot.type != d.Name) 
+                   })
+                   .transition()
+                   .style("opacity", 0.01)
+          })
+              .on("mouseout", function(d){
+               d3.selectAll('.dot')
+                .filter(function(dot){ 
+                 return (dot.type != d.Name) 
+                })
+                .transition()
+                .style("opacity", 1)
+          });
+
+	// Add the Legend
+	  var legend = svg3.selectAll(".legend")
+	      .data(color.domain())
+	    .enter().append("g")
+	      .attr("class", "legend")
+	      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+	  legend.append("rect")
+	      .attr("x", width - 18)
+	      .attr("width", 18)
+	      .attr("height", 18)
+	      .style("fill", color);
+
+	  legend.append("text")
+	      .attr("x", width - 24)
+	      .attr("y", 9)
+	      .attr("dy", ".35em")
+	      .style("text-anchor", "end")
+	      .text(function(d) { return d; });
+
+	});
+
+
+
 
 	</script>
      </div>

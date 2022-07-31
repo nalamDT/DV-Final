@@ -11,11 +11,18 @@ function switchAnnotation(newStep)
   $("#" + newStep + "-annotation").delay(300).fadeIn(500);
 }
 
+function switchCanvas(newStep)
+{
+  $(".canvas-step").hide();
+  $("#" + newStep + "-canvas").delay(300).fadeIn(5000);
+}
+
 $(document).ready(function() {
   $("a.step-link").click(function(e) {
     var clickedStep = $(this).attr('id');
     switchStep(clickedStep);
     switchAnnotation(clickedStep);
+    switchCanvas(clickedStep)
     return false;
   });
 });
