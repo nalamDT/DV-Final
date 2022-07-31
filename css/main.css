@@ -2,15 +2,11 @@ body {
   font: 11px sans-serif;
 }
 
-h2.subtitle {
-  font-size: 0.8em;
-  padding-left: 10px;
-  color: #666;
-}
+
 
 /* Basic styling for the step links */
 a.step-link {
-  padding: 5px;
+  padding: 8px;
   background-color: #444;
   color: #666;
   text-decoration: none;
@@ -28,7 +24,7 @@ a.step-link:hover, a.active {
 
 /* Basic styling for Description link*/
 a.desc-link {
-  padding: 5px;
+  padding: 8px;
   background-color: #444;
   color: #666;
   text-decoration: none;
