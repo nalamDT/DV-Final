@@ -14,7 +14,7 @@ function switchAnnotation(newStep)
 function switchCanvas(newStep)
 {
   $(".canvas-step").hide();
-  $("#" + newStep + "-canvas").delay(300).fadeIn(5000);
+  $("#" + newStep + "-canvas").delay(300).fadeIn(500);
 }
 
 $(document).ready(function() {
