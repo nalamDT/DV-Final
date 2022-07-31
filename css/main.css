@@ -7,6 +7,8 @@ body {
 /* Basic styling for the step links */
 a.step-link {
   padding: 8px;
+  margin: .125%;
+  font-size: large;
   background-color: #444;
   color: #666;
   text-decoration: none;
@@ -25,6 +27,8 @@ a.step-link:hover, a.active {
 /* Basic styling for Description link*/
 a.desc-link {
   padding: 8px;
+  font-size: large;
+  margin: .125%;
   background-color: #444;
   color: #666;
   text-decoration: none;
